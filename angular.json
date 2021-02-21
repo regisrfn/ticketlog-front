@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "TCS-TICKETLOG-FRONT"
+  "defaultProject": "TCS-TICKETLOG-FRONT",
+  "cli": {
+    "analytics": "0a3b3756-f8aa-4a47-a53e-fd2885ab8c17"
+  }
 }
