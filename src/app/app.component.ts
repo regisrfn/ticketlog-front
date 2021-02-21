@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Notification } from './shared/notification.model';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TCS-TICKETLOG-FRONT';
+  notification = new Notification;
 }
