@@ -15,11 +15,11 @@ export class CidadeService {
   }
 
   getCidadesListPorEstado(uf: String) {
-    return this.http.get(environment.apiCidade + `/get/${uf}`).toPromise()
+    return this.http.get(environment.apiCidade + `/${uf}`).toPromise()
   }
 
   getPagePorEstado(uf: string, pageNumber: number, pageSize = 10) {
-    return this.http.get(`${environment.apiCidade}/get/${uf}/page?number=${pageNumber}&size=${pageSize}`).toPromise();
+    return this.http.get(`${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}`).toPromise();
   }
 
   saveCidade(data: Cidade) {

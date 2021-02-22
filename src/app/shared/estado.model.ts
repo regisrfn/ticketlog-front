@@ -3,4 +3,5 @@ export class Estado {
     nome: string | undefined
     populacao = 0
     custoEstadoUs = 0
+    urlImage: string | undefined
 }
