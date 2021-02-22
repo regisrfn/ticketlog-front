@@ -1,8 +1,12 @@
-.home {
+.container__home {
     width: 100%;
     min-height: 100vh;
     background-color: $grey-lighten-2;
+}
+
+.home {
     padding: 1rem 10rem;
+    margin-bottom: 5rem;
     display: flex;
 
     @media only screen and (max-width: $SMALL-DEV) {

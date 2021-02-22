@@ -1,16 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
-
 
 import { AppComponent } from './app.component';
+import { CidadesComponent } from './cidades/cidades.component';
 import { HeaderComponent } from './header/header.component';
-import { NotificationComponent } from './notification/notification.component';
-import { LoaderComponent } from './loader/loader.component';
 import { HomeComponent } from './home/home.component';
+import { LoaderComponent } from './loader/loader.component';
+import { NotificationComponent } from './notification/notification.component';
+
+
+
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import { HomeComponent } from './home/home.component';
     HeaderComponent,
     NotificationComponent,
     LoaderComponent,
-    HomeComponent
+    HomeComponent,
+    CidadesComponent
   ],
   imports: [
     BrowserModule,

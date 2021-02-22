@@ -1,0 +1,40 @@
+<div class="cidades">
+    <h1>CIDADES</h1>
+    <table *ngIf="cidadesList.length !==0">
+        <thead>
+            <th>Nome</th>
+            <th>População</th>
+            <th>Custo</th>
+            <th>
+                Modify
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cidade of cidadesList;index as itemIndex; trackBy:trackByFn">
+                <td>{{cidade.nome}}</td>
+                <td>{{cidade.populacao}}</td>
+                <td>{{cidade.custoCidadeUs}}</td>
+                <td>
+                    <div>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-container *ngIf="cidadesList.length===0">
+        <h1>Nenhuma cidade cadastrada</h1>
+    </ng-container>
+
+    <div class="nav-buttons" *ngIf="(pageOfCidades.totalPages > 1)">
+        <a (click)="previousPage()" class="previous" *ngIf="pageOfCidades.pageNumber > 0">
+            &laquo; Previous
+        </a>
+        <a (click)="nextPage()" class="next" *ngIf="pageOfCidades.pageNumber < pageOfCidades.totalPages-1">
+            Next &raquo;
+        </a>
+    </div>
+
+</div>

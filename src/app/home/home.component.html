@@ -1,17 +1,20 @@
-<div class="home">
-    <div class="home__content">
-        <h1>Estado: {{estadoSelected?.nome}}</h1>
-        <h2>População: {{estadoSelected?.populacao}}</h2>
-        <h2>Custo: {{estadoSelected?.custoEstadoUs}}</h2>
-        <div class="select">
-            <!-- <div class="form-item__icon" [inlineSVG]="formIcons.orderPaymentMethod"></div> -->
-            <label class="select__label"> Selecione o estado:</label>
-            <select class="select__input" name="estado" id="estado" [(ngModel)]="nomeOfState"
-                (change)="selectEstado()">
-                <option *ngFor="let option of options;" [value]="option.nome">{{option.nome}}
-                </option>
-            </select>
+<div class="container__home">
+    <div class="home">
+        <div class="home__content">
+            <h1>Estado: {{estadoSelected?.nome}}</h1>
+            <h2>População: {{estadoSelected?.populacao}}</h2>
+            <h2>Custo: {{estadoSelected?.custoEstadoUs}}</h2>
+            <div class="select">
+                <!-- <div class="form-item__icon" [inlineSVG]="formIcons.orderPaymentMethod"></div> -->
+                <label class="select__label"> Selecione o estado:</label>
+                <select class="select__input" name="estado" id="estado" [(ngModel)]="nomeOfState"
+                    (change)="selectEstado()">
+                    <option *ngFor="let option of options;" [value]="option.nome">{{option.nome}}
+                    </option>
+                </select>
+            </div>
         </div>
+        <img [src]="url">
     </div>
-    <img [src]="url">
+    <app-cidades [uf]="estado"></app-cidades>
 </div>
