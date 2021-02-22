@@ -29,4 +29,12 @@ export class CidadeService {
   saveCidadeFromFile(data: FormData) {
     return this.http.post(`${environment.apiCidade}/savelist`, data).toPromise()
   }
+
+  deleteCidade(id:string) {
+    return this.http.delete(`${environment.apiCidade}/delete/${id}`).toPromise()
+  }
+
+  deleteCidadesList(data: Cidade[]) {
+    return this.http.post(`${environment.apiCidade}/deletelist`, data).toPromise()
+  }
 }
