@@ -3,6 +3,10 @@ table {
     border-collapse: collapse;
     width: 100%;
 
+    th{
+      background-color: #cccccc;
+    }
+
     td,
     th {
         font-size: 2rem;

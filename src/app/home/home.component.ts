@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CidadeService } from '../shared/cidade.service';
 import { Estado } from '../shared/estado.model';
 import { EstadoService } from '../shared/estado.service';
-import { Page } from '../shared/page.model';
+import { Notification } from '../shared/notification.model';
 
 @Component({
   templateUrl: './home.component.html',
@@ -11,8 +12,8 @@ export class HomeComponent implements OnInit {
   estado = 'SC';
   nomeOfState = 'Santa Catarina';
   url = 'assets/svg/Bandeira_de_Santa_Catarina.svg';
-  cidadesPage = new Page();
   estadoSelected: Estado | undefined;
+  closePopUp = false;
 
   options = [
     {
@@ -34,12 +35,19 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private estadoService: EstadoService,
-    private cidadeService: CidadeService
+    private cidadeService: CidadeService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.cidadeService.savedCidade.subscribe((notification: Notification) => {
+      if (notification.msg === 'Cidade salva com sucesso') {
+        this.closePopUp = true;
+        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+      }
+    });
     this.setEstadoSelected(this.estado);
-    this.setCidadesPage(this.estado, 0, 20);
   }
 
   selectEstado() {
@@ -52,21 +60,15 @@ export class HomeComponent implements OnInit {
     this.setEstadoSelected(this.estado);
   }
 
+  newCidade() {
+    this.closePopUp = false;
+  }
   private setEstadoSelected(uf: string) {
     this.estadoService
       .getEstadoById(uf)
       .then((estado) => {
         this.estadoSelected = estado as Estado;
         this.estadoSelected.urlImage = this.url;
-      })
-      .catch((err) => {});
-  }
-
-  private setCidadesPage(uf: string, pageNumber: number, size: number) {
-    this.cidadeService
-      .getPagePorEstado(uf, pageNumber, size)
-      .then((page) => {
-        this.cidadesPage = page as Page;
       })
       .catch((err) => {});
   }

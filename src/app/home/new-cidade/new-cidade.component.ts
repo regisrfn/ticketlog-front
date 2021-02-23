@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cidade } from 'src/app/shared/cidade.model';
 import { CidadeService } from 'src/app/shared/cidade.service';
 import { Estado } from 'src/app/shared/estado.model';
@@ -12,7 +13,7 @@ export class NewCidadeComponent implements OnInit {
   formData = new Cidade();
   savingCidade = false;
 
-  constructor(private cidadeService: CidadeService) {}
+  constructor(private cidadeService: CidadeService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -34,6 +35,9 @@ export class NewCidadeComponent implements OnInit {
           type: 'successfully',
         });
         this.savingCidade = false;
+      })
+      .then(() => {
+        this.router.navigate([`/`]);
       })
       .catch((err) => {
         this.cidadeService.savedCidade.emit({
