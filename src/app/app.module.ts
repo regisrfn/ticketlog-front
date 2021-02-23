@@ -15,6 +15,8 @@ import { PopupHomeComponent } from './home/popup-home/popup-home.component';
 import { NewCidadeComponent } from './home/new-cidade/new-cidade.component';
 import { CidadeService } from './shared/cidade.service';
 import { EstadoService } from './shared/estado.service';
+import { NewCidadeFromFileComponent } from './home/new-cidade-from-file/new-cidade-from-file.component';
+import { PopupFileComponent } from './home/new-cidade-from-file/popup-file/popup-file.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { EstadoService } from './shared/estado.service';
     HomeComponent,
     CidadesComponent,
     PopupHomeComponent,
-    NewCidadeComponent
+    NewCidadeComponent,
+    NewCidadeFromFileComponent,
+    PopupFileComponent
   ],
   imports: [
     BrowserModule,

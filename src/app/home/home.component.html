@@ -17,7 +17,9 @@
       <button class="btn btn--inserir">
         <a href="/#insert" (click)="newCidade()">Inserir nova cidade</a>
       </button>
-      <button class="btn">Inserir por arquivo</button>
+      <button class="btn">
+        <a href="/#insertfile" (click)="newCidade()">Inserir por arquivo</a>
+      </button>
     </div>
 
     <img [src]="url" />
@@ -25,4 +27,5 @@
 
   <app-cidades [uf]="estadoSelected.uf || ''"></app-cidades>
   <app-popup-home *ngIf="!closePopUp" [data]="estadoSelected"></app-popup-home>
+  <app-popup-file *ngIf="!closePopUp" [data]="estadoSelected"></app-popup-file>
 </div>
