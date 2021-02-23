@@ -12,9 +12,9 @@ export class NewCidadeFromFileComponent implements OnInit {
   formData = new FormData();
   savingCidade = false;
 
-  constructor(private cidadeService: CidadeService, private router: Router) {}
+  constructor(private cidadeService: CidadeService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   selectFiles(input: HTMLInputElement) {
     const files = input.files;
@@ -22,33 +22,29 @@ export class NewCidadeFromFileComponent implements OnInit {
   }
 
   saveCidade() {
-    this.cidadeService.savedCidadeList.emit({
-      show: false,
-      msg: '',
-      type: '',
-    });
+    this.setEvenMessage()
     this.savingCidade = true;
 
     this.cidadeService
       .saveCidadeFromFile(this.formData)
       .then((response) => {
-        this.cidadeService.savedCidadeList.emit({
-          show: true,
-          msg: 'Cidade salva com sucesso',
-          type: 'successfully',
-        });
+        this.setEvenMessage(true,'Lista de cidades salva com sucesso', 'successfully')
         this.savingCidade = false;
       })
       .then(() => {
         this.router.navigate([`/`]);
       })
       .catch((err) => {
-        this.cidadeService.savedCidadeList.emit({
-          show: true,
-          msg: 'Lista de cidades não foi salva',
-          type: 'error',
-        });
+        this.setEvenMessage(true,'Lista de cidades não foi salva', 'error')
         this.savingCidade = false;
       });
+  }
+
+  private setEvenMessage(show = false, msg = '', type = '') {
+    this.cidadeService.deletedCidade.emit({
+      show: show,
+      msg: msg,
+      type: type,
+    });
   }
 }

@@ -41,20 +41,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cidadeService.savedCidade.subscribe((notification: Notification) => {
-      this.closePopUp = true;
-      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
-
-    });
-    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
-      this.closePopUp = true;
-      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
-
-    });
-    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
-      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
-
-    });
+    this.subscribeNotifications();
     this.setEstadoSelected(this.estado);
   }
 
@@ -71,6 +58,7 @@ export class HomeComponent implements OnInit {
   newCidade() {
     this.closePopUp = false;
   }
+
   private setEstadoSelected(uf: string) {
     this.estadoService
       .getEstadoById(uf)
@@ -79,5 +67,25 @@ export class HomeComponent implements OnInit {
         this.estadoSelected.urlImage = this.url;
       })
       .catch((err) => { });
+  }
+
+  private subscribeNotifications() {
+    this.cidadeService.savedCidade.subscribe((notification: Notification) => {
+      if (notification.type === "successfully") {
+        this.closePopUp = true;
+        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+      }
+    });
+    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
+      if (notification.type === "successfully") {
+        this.closePopUp = true;
+        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+      }
+    });
+    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
+      if (notification.type === "successfully")
+        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Cidade } from '../shared/cidade.model';
 import { CidadeService } from '../shared/cidade.service';
+import { Notification } from '../shared/notification.model';
 import { Page } from '../shared/page.model';
 
 @Component({
@@ -17,16 +18,7 @@ export class CidadesComponent implements OnInit {
   constructor(private cidadeService: CidadeService) { }
 
   ngOnInit(): void {
-    this.cidadeService.savedCidade.subscribe((notification: Notification) => {
-      this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
-    });
-    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
-      this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
-    });
-    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
-      this.open=false
-      this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
-    });
+    this.subscribeNotifications();
     this.setCidadePage(this.uf, 0);
   }
 
@@ -44,13 +36,6 @@ export class CidadesComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.uf) this.setCidadePage(this.uf, 0);
-  }
-
-  private setCidadePage(uf: string, pageNumber: number) {
-    this.cidadeService.getPagePorEstado(uf, pageNumber).then((page) => {
-      this.pageOfCidades = page as Page;
-      this.cidadesList = this.pageOfCidades.cidadesList;
-    });
   }
 
   selectCidade(cidade: Cidade) {
@@ -80,6 +65,30 @@ export class CidadesComponent implements OnInit {
       show: show,
       msg: msg,
       type: type,
+    });
+  }
+
+  private subscribeNotifications() {
+    this.cidadeService.savedCidade.subscribe((notification: Notification) => {
+      if (notification.type === "successfully")
+        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+    });
+    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
+      if (notification.type === "successfully")
+        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+    });
+    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
+      if (notification.type === "successfully") {
+        this.open = false;
+        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+      }
+
+    });
+  }
+  private setCidadePage(uf: string, pageNumber: number) {
+    this.cidadeService.getPagePorEstado(uf, pageNumber).then((page) => {
+      this.pageOfCidades = page as Page;
+      this.cidadesList = this.pageOfCidades.cidadesList;
     });
   }
 }
