@@ -17,6 +17,7 @@ import { CidadeService } from './shared/cidade.service';
 import { EstadoService } from './shared/estado.service';
 import { NewCidadeFromFileComponent } from './home/new-cidade-from-file/new-cidade-from-file.component';
 import { PopupFileComponent } from './home/new-cidade-from-file/popup-file/popup-file.component';
+import { DeleteWarningComponent } from './delete-warning/delete-warning.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PopupFileComponent } from './home/new-cidade-from-file/popup-file/popup
     PopupHomeComponent,
     NewCidadeComponent,
     NewCidadeFromFileComponent,
-    PopupFileComponent
+    PopupFileComponent,
+    DeleteWarningComponent
   ],
   imports: [
     BrowserModule,

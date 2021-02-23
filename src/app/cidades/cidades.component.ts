@@ -11,11 +11,20 @@ export class CidadesComponent implements OnInit {
   @Input() uf = '';
   pageOfCidades = new Page();
   cidadesList: Cidade[] = [];
+  open = false
+  selectedCidade: Cidade | undefined
 
-  constructor(private cidadeService: CidadeService) {}
+  constructor(private cidadeService: CidadeService) { }
 
   ngOnInit(): void {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
+      this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+    });
+    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
+      this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+    });
+    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
+      this.open=false
       this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
     });
     this.setCidadePage(this.uf, 0);
@@ -41,6 +50,36 @@ export class CidadesComponent implements OnInit {
     this.cidadeService.getPagePorEstado(uf, pageNumber).then((page) => {
       this.pageOfCidades = page as Page;
       this.cidadesList = this.pageOfCidades.cidadesList;
+    });
+  }
+
+  selectCidade(cidade: Cidade) {
+    this.open = true;
+    this.selectedCidade = cidade
+  }
+
+  deleteCidade(event: { isConfirmed: boolean }) {
+    this.setEvenMessage();
+    if (event.isConfirmed) {
+      this.cidadeService.deleteCidade(this.selectedCidade?.id || "")
+        .then(res => {
+          this.setEvenMessage(true, 'Cidade removida', 'successfully')
+        })
+        .catch(err => {
+          this.setEvenMessage(true, 'Cidade não pode ser removida', 'successfully')
+        })
+    }
+    else {
+      this.open = false;
+      this.selectedCidade = undefined
+    }
+  }
+
+  private setEvenMessage(show = false, msg = '', type = '') {
+    this.cidadeService.deletedCidade.emit({
+      show: show,
+      msg: msg,
+      type: type,
     });
   }
 }

@@ -16,7 +16,7 @@
                 <td>{{cidade.custoCidadeUs}}</td>
                 <td>
                     <div>
-                        <button>Excluir</button>
+                        <button (click)="selectCidade(cidade)">Excluir</button>
                     </div>
                 </td>
             </tr>
@@ -35,5 +35,6 @@
             Next &raquo;
         </a>
     </div>
-
+    <app-delete-warning [data]="selectedCidade" (confirm)="deleteCidade($event)" [isClosed]="!open">
+    </app-delete-warning>
 </div>

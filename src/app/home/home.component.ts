@@ -38,14 +38,22 @@ export class HomeComponent implements OnInit {
     private cidadeService: CidadeService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
-      if (notification.msg === 'Cidade salva com sucesso') {
-        this.closePopUp = true;
-        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
-      }
+      this.closePopUp = true;
+      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+
+    });
+    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
+      this.closePopUp = true;
+      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+
+    });
+    this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
+      this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
+
     });
     this.setEstadoSelected(this.estado);
   }
@@ -70,6 +78,6 @@ export class HomeComponent implements OnInit {
         this.estadoSelected = estado as Estado;
         this.estadoSelected.urlImage = this.url;
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 }

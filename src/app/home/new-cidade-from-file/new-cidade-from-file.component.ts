@@ -22,7 +22,7 @@ export class NewCidadeFromFileComponent implements OnInit {
   }
 
   saveCidade() {
-    this.cidadeService.savedCidade.emit({
+    this.cidadeService.savedCidadeList.emit({
       show: false,
       msg: '',
       type: '',
@@ -32,7 +32,7 @@ export class NewCidadeFromFileComponent implements OnInit {
     this.cidadeService
       .saveCidadeFromFile(this.formData)
       .then((response) => {
-        this.cidadeService.savedCidade.emit({
+        this.cidadeService.savedCidadeList.emit({
           show: true,
           msg: 'Cidade salva com sucesso',
           type: 'successfully',
@@ -43,9 +43,9 @@ export class NewCidadeFromFileComponent implements OnInit {
         this.router.navigate([`/`]);
       })
       .catch((err) => {
-        this.cidadeService.savedCidade.emit({
+        this.cidadeService.savedCidadeList.emit({
           show: true,
-          msg: 'Cidade salva com sucesso',
+          msg: 'Lista de cidades não foi salva',
           type: 'error',
         });
         this.savingCidade = false;

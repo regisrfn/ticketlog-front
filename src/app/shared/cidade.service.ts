@@ -11,6 +11,8 @@ import { Notification } from './notification.model';
 export class CidadeService {
   currentEstado: Estado | undefined;
   @Output() savedCidade: EventEmitter<Notification> = new EventEmitter();
+  @Output() savedCidadeList: EventEmitter<Notification> = new EventEmitter();
+  @Output() deletedCidade: EventEmitter<Notification> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
