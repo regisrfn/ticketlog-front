@@ -6,7 +6,12 @@
             <th>População</th>
             <th>Custo</th>
             <th>
-                <button (click)="modoEdicao=!modoEdicao">Editar</button>
+                <div class="tbl-btn">
+                    <button class="btn btn-edit" (click)="modoEdicao=!modoEdicao">
+                        <span class="icon" [inlineSVG]="'assets/svg/edit.svg'"></span>
+                        Editar
+                    </button>
+                </div>
             </th>
         </thead>
         <tbody>
@@ -15,8 +20,10 @@
                 <td>{{cidade.populacao}}</td>
                 <td>{{cidade.custoCidadeUs}}</td>
                 <td>
-                    <div>
-                        <button *ngIf="!modoEdicao" (click)="selectCidade(cidade)">Excluir</button>
+                    <div class="tbl-btn">
+                        <button *ngIf="!modoEdicao" class="btn btn-del" (click)="selectCidade(cidade)">
+                            <span class="icon" [inlineSVG]="'assets/svg/delete.svg'"></span>
+                        </button>
                         <input *ngIf="modoEdicao" (change)="selectCidades()" type="checkbox"
                             [(ngModel)]="cidade.isChecked">
                     </div>

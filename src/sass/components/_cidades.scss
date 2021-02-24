@@ -28,4 +28,50 @@
       }
     }
   }
+
+  .tbl-btn {
+    display: flex;
+    justify-content: center;
+
+    .btn-del {
+      width: 50%;
+      background-color: transparent;
+
+      &:hover{
+        transform: scale(1.1);
+      }
+
+      .icon {
+        fill: $red-accent-3;
+
+        :hover {
+          fill:$red-accent-4;
+        }
+      }
+    }
+
+    .btn-edit {
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      background-color: transparent;
+      color: $grey-darken-3;
+      
+      &:hover{
+        transform: scale(1.1);
+      }
+
+      .icon {
+        width: 2rem;
+        height: 2rem;
+        fill: $grey-darken-3;
+      }
+    }
+  }
+
+  > table {
+    th:last-child,
+    td:last-child {
+      width: 10%;
+    }
+  }
 }

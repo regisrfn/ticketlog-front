@@ -53,5 +53,10 @@
         margin-top: 2rem;
         width: 100%;
         max-width: 40rem;
+        background-color: $green-darken-3;
+
+        &:hover{
+            background-color: $green-darken-1;
+        }
     }
 }
