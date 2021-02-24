@@ -48,6 +48,7 @@
     <div>
         <button *ngIf="modoEdicao" (click)="askDeleteGroup=true">Excluir</button>
     </div>
+
     <app-delete-warning [data]="selectedCidade" (confirm)="deleteCidade($event)" [isClosed]="!open">
     </app-delete-warning>
     <app-delete-warning [data]="selectedCidades" (confirm)="deleteCidadeList($event)" [isClosed]="!askDeleteGroup">

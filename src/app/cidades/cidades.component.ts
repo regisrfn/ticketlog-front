@@ -82,7 +82,6 @@ export class CidadesComponent implements OnInit {
     }
     else {
       this.askDeleteGroup = false;
-      this.selectedCidades = []
     }
   }
 
@@ -111,9 +110,13 @@ export class CidadesComponent implements OnInit {
     });
   }
   private setCidadePage(uf: string, pageNumber: number) {
-    this.cidadeService.getPagePorEstado(uf, pageNumber).then((page) => {
-      this.pageOfCidades = page as Page;
-      this.cidadesList = this.pageOfCidades.cidadesList;
-    });
+    this.cidadeService.getPagePorEstado(uf, pageNumber)
+      .then((page) => {
+        this.pageOfCidades = page as Page;
+        this.cidadesList = this.pageOfCidades.cidadesList;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
