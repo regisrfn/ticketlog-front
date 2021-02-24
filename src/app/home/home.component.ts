@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CidadeService } from '../shared/cidade.service';
 import { Estado } from '../shared/estado.model';
 import { EstadoService } from '../shared/estado.service';
@@ -35,9 +34,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private estadoService: EstadoService,
-    private cidadeService: CidadeService,
-    private router: Router,
-    private route: ActivatedRoute
+    private cidadeService: CidadeService
   ) { }
 
   ngOnInit(): void {
@@ -71,12 +68,6 @@ export class HomeComponent implements OnInit {
 
   private subscribeNotifications() {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
-      if (notification.type === "successfully") {
-        this.closePopUp = true;
-        this.setEstadoSelected(this.estadoSelected?.uf || this.estado);
-      }
-    });
-    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
       if (notification.type === "successfully") {
         this.closePopUp = true;
         this.setEstadoSelected(this.estadoSelected?.uf || this.estado);

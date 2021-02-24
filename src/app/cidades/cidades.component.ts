@@ -14,6 +14,9 @@ export class CidadesComponent implements OnInit {
   cidadesList: Cidade[] = [];
   open = false
   selectedCidade: Cidade | undefined
+  selectedCidades: Cidade[] = []
+  modoEdicao = false;
+  askDeleteGroup = false
 
   constructor(private cidadeService: CidadeService) { }
 
@@ -43,15 +46,21 @@ export class CidadesComponent implements OnInit {
     this.selectedCidade = cidade
   }
 
+  selectCidades() {
+    this.selectedCidades = this.cidadesList.filter(cidade => cidade.isChecked)
+    console.log(this.selectedCidades);
+
+  }
+
   deleteCidade(event: { isConfirmed: boolean }) {
-    this.setEvenMessage();
+    this.setDeleteEvenMessage();
     if (event.isConfirmed) {
       this.cidadeService.deleteCidade(this.selectedCidade?.id || "")
         .then(res => {
-          this.setEvenMessage(true, 'Cidade removida', 'successfully')
+          this.setDeleteEvenMessage(true, 'Cidade removida', 'successfully')
         })
         .catch(err => {
-          this.setEvenMessage(true, 'Cidade não pode ser removida', 'successfully')
+          this.setDeleteEvenMessage(true, 'Cidade não pode ser removida', 'error')
         })
     }
     else {
@@ -60,7 +69,25 @@ export class CidadesComponent implements OnInit {
     }
   }
 
-  private setEvenMessage(show = false, msg = '', type = '') {
+  deleteCidadeList(event: { isConfirmed: boolean }) {
+    this.setDeleteEvenMessage();
+    if (event.isConfirmed) {
+      this.cidadeService.deleteCidadesList(this.selectedCidades)
+        .then(res => {
+          this.setDeleteEvenMessage(true, 'Lista de cidades removida', 'successfully')
+        })
+        .catch(err => {
+          this.setDeleteEvenMessage(true, 'Lista não removida', 'error')
+        })
+    }
+    else {
+      this.askDeleteGroup = false;
+      this.selectedCidades = []
+    }
+  }
+
+
+  private setDeleteEvenMessage(show = false, msg = '', type = '') {
     this.cidadeService.deletedCidade.emit({
       show: show,
       msg: msg,
@@ -73,13 +100,11 @@ export class CidadesComponent implements OnInit {
       if (notification.type === "successfully")
         this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
     });
-    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
-      if (notification.type === "successfully")
-        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
-    });
     this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
       if (notification.type === "successfully") {
         this.open = false;
+        this.askDeleteGroup = false
+        this.modoEdicao = false
         this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
       }
 

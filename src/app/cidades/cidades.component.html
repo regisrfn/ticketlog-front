@@ -6,7 +6,7 @@
             <th>População</th>
             <th>Custo</th>
             <th>
-                Modificar
+                <button (click)="modoEdicao=!modoEdicao">Editar</button>
             </th>
         </thead>
         <tbody>
@@ -16,7 +16,9 @@
                 <td>{{cidade.custoCidadeUs}}</td>
                 <td>
                     <div>
-                        <button (click)="selectCidade(cidade)">Excluir</button>
+                        <button *ngIf="!modoEdicao" (click)="selectCidade(cidade)">Excluir</button>
+                        <input *ngIf="modoEdicao" (change)="selectCidades()" type="checkbox"
+                            [(ngModel)]="cidade.isChecked">
                     </div>
                 </td>
             </tr>
@@ -35,6 +37,12 @@
             Next &raquo;
         </a>
     </div>
+
+    <div>
+        <button *ngIf="modoEdicao" (click)="askDeleteGroup=true">Excluir</button>
+    </div>
     <app-delete-warning [data]="selectedCidade" (confirm)="deleteCidade($event)" [isClosed]="!open">
+    </app-delete-warning>
+    <app-delete-warning [data]="selectedCidades" (confirm)="deleteCidadeList($event)" [isClosed]="!askDeleteGroup">
     </app-delete-warning>
 </div>

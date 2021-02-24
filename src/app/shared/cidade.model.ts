@@ -4,4 +4,5 @@ export class Cidade {
     nome: string | undefined
     populacao: number | undefined
     custoCidadeUs: number | undefined
+    isChecked = false
 }

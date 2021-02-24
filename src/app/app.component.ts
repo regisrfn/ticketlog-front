@@ -17,13 +17,8 @@ export class AppComponent {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
       this.notification = notification;
     });
-    this.cidadeService.savedCidadeList.subscribe((notification: Notification) => {
-      this.notification = notification;
-    });
     this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
-      this.notification = notification;
-      console.log(notification);
-            
+      this.notification = notification;            
     });
   }
 }

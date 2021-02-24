@@ -11,7 +11,6 @@ import { Notification } from './notification.model';
 export class CidadeService {
   currentEstado: Estado | undefined;
   @Output() savedCidade: EventEmitter<Notification> = new EventEmitter();
-  @Output() savedCidadeList: EventEmitter<Notification> = new EventEmitter();
   @Output() deletedCidade: EventEmitter<Notification> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
@@ -50,7 +49,7 @@ export class CidadeService {
 
   deleteCidadesList(data: Cidade[]) {
     return this.http
-      .post(`${environment.apiCidade}/deletelist`, data)
+      .put(`${environment.apiCidade}/deletelist`, data)
       .toPromise();
   }
 }

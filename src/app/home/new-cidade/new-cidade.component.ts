@@ -38,7 +38,7 @@ export class NewCidadeComponent implements OnInit {
   }
 
   private setEvenMessage(show = false, msg = '', type = '') {
-    this.cidadeService.deletedCidade.emit({
+    this.cidadeService.savedCidade.emit({
       show: show,
       msg: msg,
       type: type,
