@@ -9,9 +9,11 @@
 
       <span *ngIf="estado">{{estado.nome?.toLocaleUpperCase()}}</span>
 
-      <input type="text" class="item__field" placeholder="Nome" [(ngModel)]="formData.nome">
+      <span class="error" *ngIf="errors.nome">{{errors.nome}}</span>
+      <input type="text" class="item__field" placeholder="Nome" [(ngModel)]="formData.nome">      
 
-      <input type="text" class="item__field" placeholder="Populacao" [(ngModel)]="formData.populacao">
+      <span class="error" *ngIf="errors.populacao">{{errors.populacao}}</span>
+      <input type="number" class="item__field" placeholder="Populacao" [(ngModel)]="formData.populacao">
 
       <button class="item__btn">
         <a (click)="saveCidade()">Save</a>
