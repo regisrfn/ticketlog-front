@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CidadeService } from '../shared/cidade.service';
+import { Dolar } from '../shared/dolar';
+import { DolarService } from '../shared/dolar.service';
 import { Estado } from '../shared/estado.model';
 import { EstadoService } from '../shared/estado.service';
 import { Notification } from '../shared/notification.model';
@@ -13,6 +15,7 @@ export class HomeComponent implements OnInit {
   url = 'assets/svg/Bandeira_de_Santa_Catarina.svg';
   estadoSelected: Estado | undefined;
   closePopUp = false;
+  dolarHoje: Dolar | undefined
 
   options = [
     {
@@ -34,12 +37,14 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private estadoService: EstadoService,
-    private cidadeService: CidadeService
+    private cidadeService: CidadeService,
+    private dolarService: DolarService
   ) { }
 
   ngOnInit(): void {
     this.subscribeNotifications();
     this.setEstadoSelected(this.estado);
+    this.getDolar()
   }
 
   selectEstado() {
@@ -54,6 +59,22 @@ export class HomeComponent implements OnInit {
 
   newCidade() {
     this.closePopUp = false;
+  }
+
+  dolar2Real() {
+    if (this.estadoSelected && this.dolarHoje?.USD) {
+      return this.estadoSelected.custoEstadoUs * (this.dolarHoje.USD.ask || 1)
+    }
+    return 0
+  }
+
+  private getDolar() {
+    this.dolarService.getDolar()
+      .then(res => {
+        this.dolarHoje = res as Dolar
+        console.log(this.dolarHoje);
+      })
+      .catch(err => console.log(err))
   }
 
   private setEstadoSelected(uf: string) {

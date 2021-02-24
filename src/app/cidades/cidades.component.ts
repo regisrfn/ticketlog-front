@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Cidade } from '../shared/cidade.model';
 import { CidadeService } from '../shared/cidade.service';
+import { Dolar } from '../shared/dolar';
+import { DolarService } from '../shared/dolar.service';
 import { Notification } from '../shared/notification.model';
 import { Page } from '../shared/page.model';
 
@@ -10,6 +12,7 @@ import { Page } from '../shared/page.model';
 })
 export class CidadesComponent implements OnInit {
   @Input() uf = '';
+  dolarHoje = new Dolar
   pageOfCidades = new Page();
   cidadesList: Cidade[] = [];
   open = false
@@ -18,11 +21,13 @@ export class CidadesComponent implements OnInit {
   modoEdicao = false;
   askDeleteGroup = false
 
-  constructor(private cidadeService: CidadeService) { }
+
+  constructor(private cidadeService: CidadeService, private dolarService: DolarService) { }
 
   ngOnInit(): void {
     this.subscribeNotifications();
     this.setCidadePage(this.uf, 0);
+    this.setDolar()
   }
 
   nextPage() {
@@ -38,7 +43,7 @@ export class CidadesComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.uf) this.setCidadePage(this.uf, 0);
+    if (changes.uf) this.setCidadePage(this.uf, 0)
   }
 
   selectCidade(cidade: Cidade) {
@@ -85,6 +90,22 @@ export class CidadesComponent implements OnInit {
     }
   }
 
+  dolar2Real(cidade: Cidade) {
+    if (cidade.custoCidadeUs && this.dolarHoje?.USD) {
+      return cidade.custoCidadeUs * (this.dolarHoje.USD.ask || 1)
+    }
+    return 0
+  }
+
+  private setDolar() {
+    this.dolarService.getDolar()
+      .then(res => {
+        this.dolarHoje = res as Dolar
+        console.log(this.dolarHoje);
+      })
+      .catch(err => console.log(err))
+  }
+
 
   private setDeleteEvenMessage(show = false, msg = '', type = '') {
     this.cidadeService.deletedCidade.emit({
@@ -119,4 +140,5 @@ export class CidadesComponent implements OnInit {
         console.log(err);
       });
   }
+
 }

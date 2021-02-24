@@ -18,7 +18,10 @@ import { EstadoService } from './shared/estado.service';
 import { NewCidadeFromFileComponent } from './home/new-cidade-from-file/new-cidade-from-file.component';
 import { PopupFileComponent } from './home/new-cidade-from-file/popup-file/popup-file.component';
 import { DeleteWarningComponent } from './delete-warning/delete-warning.component';
-
+import { LOCALE_ID } from '@angular/core';
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
@@ -41,7 +44,7 @@ import { DeleteWarningComponent } from './delete-warning/delete-warning.componen
     HttpClientModule,
     InlineSVGModule.forRoot()
   ],
-  providers: [CidadeService,EstadoService],
+  providers: [CidadeService, EstadoService, { provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

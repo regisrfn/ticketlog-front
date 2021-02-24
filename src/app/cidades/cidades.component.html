@@ -18,7 +18,7 @@
             <tr *ngFor="let cidade of cidadesList;index as itemIndex; trackBy:trackByFn">
                 <td>{{cidade.nome}}</td>
                 <td>{{cidade.populacao}}</td>
-                <td>{{cidade.custoCidadeUs}}</td>
+                <td>{{dolar2Real(cidade) | currency:'BRL':'symbol':'1.2-2':'pt-BR'}}</td>
                 <td>
                     <div class="tbl-btn">
                         <button *ngIf="!modoEdicao" class="btn btn-del" (click)="selectCidade(cidade)">

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cidade } from 'src/app/shared/cidade.model';
 import { CidadeService } from 'src/app/shared/cidade.service';
+import { Dolar } from 'src/app/shared/dolar';
+import { DolarService } from 'src/app/shared/dolar.service';
 import { Estado } from 'src/app/shared/estado.model';
 
 @Component({
@@ -12,10 +14,11 @@ export class NewCidadeComponent implements OnInit {
   @Input() estado: Estado | undefined;
   formData = new Cidade();
   savingCidade = false;
+  
 
   constructor(private cidadeService: CidadeService, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   saveCidade() {
     this.setEvenMessage()
@@ -25,14 +28,14 @@ export class NewCidadeComponent implements OnInit {
     this.cidadeService
       .saveCidade(this.formData)
       .then((response) => {
-        this.setEvenMessage(true,'Cidade salva com sucesso','successfully')
+        this.setEvenMessage(true, 'Cidade salva com sucesso', 'successfully')
         this.savingCidade = false;
       })
       .then(() => {
         this.router.navigate([`/`]);
       })
       .catch((err) => {
-        this.setEvenMessage(true,'Cidade não pode ser salva','error')
+        this.setEvenMessage(true, 'Cidade não pode ser salva', 'error')
         this.savingCidade = false;
       });
   }
