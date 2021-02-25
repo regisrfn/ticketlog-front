@@ -23,10 +23,18 @@ export class CidadeService {
     return this.http.get(environment.apiCidade + `/${uf}`).toPromise();
   }
 
-  getPagePorEstado(uf: string, pageNumber: number, pageSize = 10) {
+  getPagePorEstado(uf: string, pageNumber: number, pageSize = 5) {
     return this.http
       .get(
         `${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}`
+      )
+      .toPromise();
+  }
+
+  getPagePorEstadoOrderBy(uf: string, orderBy:string, asc:boolean, pageNumber: number, pageSize = 5) {
+    return this.http
+      .get(
+        `${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}&sort=${orderBy}&asc=${asc}`
       )
       .toPromise();
   }

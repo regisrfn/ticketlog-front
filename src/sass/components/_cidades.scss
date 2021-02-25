@@ -73,6 +73,14 @@
     td:last-child {
       width: 10%;
     }
+
+    th {
+      cursor: pointer;
+      &:not(:last-child):hover{
+        background-color: rgba($color: $grey-lighten-1, $alpha: 1);
+        transform: scaleY(1.05);
+      }
+    }
   }
 
   .btn-container{

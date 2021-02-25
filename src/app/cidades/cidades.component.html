@@ -2,8 +2,8 @@
     <h1>CIDADES</h1>
     <table *ngIf="cidadesList.length !==0">
         <thead>
-            <th>Nome</th>
-            <th>População</th>
+            <th (click)="setPageOrderBY('nome')">Nome</th>
+            <th (click)="setPageOrderBY('populacao')">População</th>
             <th>Custo</th>
             <th>
                 <div class="tbl-btn">
@@ -38,16 +38,17 @@
 
     <div class="nav-buttons" *ngIf="(pageOfCidades.totalPages > 1)">
         <a (click)="previousPage()" class="previous" *ngIf="pageOfCidades.pageNumber > 0">
-            &laquo; Previous
+            &laquo; Anterior
         </a>
         <a (click)="nextPage()" class="next" *ngIf="pageOfCidades.pageNumber < pageOfCidades.totalPages-1">
-            Next &raquo;
+            Proxima &raquo;
         </a>
     </div>
 
     <div class="btn-container">
-        <button class="btn btn-del" *ngIf="modoEdicao && selectedCidades.length>0" (click)="askDeleteGroup=true">Excluir
-            cidades selecionadas</button>
+        <button class="btn btn-del" *ngIf="modoEdicao" (click)="askDeleteGroup=true" [disabled]="selectedCidades.length === 0">
+            Excluir cidades selecionadas
+        </button>
     </div>
 
     <app-delete-warning (confirm)="deleteCidade($event)" [isClosed]="!open">

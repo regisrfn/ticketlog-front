@@ -21,6 +21,12 @@ export class CidadesComponent implements OnInit {
   modoEdicao = false;
   askDeleteGroup = false
 
+  ascPopulacao = true
+  ascNome = true
+  asc = true;
+  orderBy = "nome"
+
+
 
   constructor(private cidadeService: CidadeService, private dolarService: DolarService) { }
 
@@ -31,19 +37,22 @@ export class CidadesComponent implements OnInit {
   }
 
   nextPage() {
-    this.setCidadePage(this.uf, this.pageOfCidades.pageNumber + 1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber+1);
   }
 
   previousPage() {
-    this.setCidadePage(this.uf, this.pageOfCidades.pageNumber - 1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber-1);
   }
 
-  trackByFn(index: any, item: any) {
-    return index;
+  trackByFn(index: any, item: Cidade) {
+    return item.id;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.uf) this.setCidadePage(this.uf, 0)
+    if (changes.uf) {
+      this.reset()
+      this.setCidadePage(this.uf, 0)
+    }
   }
 
   selectCidade(cidade: Cidade) {
@@ -95,6 +104,20 @@ export class CidadesComponent implements OnInit {
     return 0
   }
 
+  setPageOrderBY(orderBy: string) {
+    if (orderBy === 'populacao') {
+      this.orderBy = orderBy
+      this.ascPopulacao = !this.ascPopulacao
+      this.asc = this.ascPopulacao
+    }
+    else if (orderBy === 'nome') {
+      this.orderBy = orderBy
+      this.ascNome = !this.ascNome
+      this.asc = this.ascNome
+    }
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
+  }
+
   private setDolar() {
     this.dolarService.getDolar()
       .then(res => {
@@ -129,6 +152,27 @@ export class CidadesComponent implements OnInit {
   }
   private setCidadePage(uf: string, pageNumber: number) {
     this.cidadeService.getPagePorEstado(uf, pageNumber)
+      .then((page) => {
+        this.pageOfCidades = page as Page;
+        this.cidadesList = this.pageOfCidades.cidadesList;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  private reset() {
+    this.selectedCidades = []
+    this.selectedCidade = new Cidade
+    this.modoEdicao = false;
+    this.askDeleteGroup = false
+    this.ascPopulacao = true
+    this.ascNome = true
+    this.orderBy = "nome"
+  }
+
+  private setCidadePageOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number) {
+    this.cidadeService.getPagePorEstadoOrderBy(uf, orderBy, asc, pageNumber)
       .then((page) => {
         this.pageOfCidades = page as Page;
         this.cidadesList = this.pageOfCidades.cidadesList;
