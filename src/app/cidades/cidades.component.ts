@@ -53,8 +53,6 @@ export class CidadesComponent implements OnInit {
 
   selectCidades() {
     this.selectedCidades = this.cidadesList.filter(cidade => cidade.isChecked)
-    console.log(this.selectedCidades);
-
   }
 
   deleteCidade(event: { isConfirmed: boolean }) {
@@ -101,7 +99,6 @@ export class CidadesComponent implements OnInit {
     this.dolarService.getDolar()
       .then(res => {
         this.dolarHoje = res as Dolar
-        console.log(this.dolarHoje);
       })
       .catch(err => console.log(err))
   }

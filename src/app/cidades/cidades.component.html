@@ -45,8 +45,9 @@
         </a>
     </div>
 
-    <div>
-        <button *ngIf="modoEdicao" (click)="askDeleteGroup=true">Excluir</button>
+    <div class="btn-container">
+        <button class="btn btn-del" *ngIf="modoEdicao && selectedCidades.length>0" (click)="askDeleteGroup=true">Excluir
+            cidades selecionadas</button>
     </div>
 
     <app-delete-warning (confirm)="deleteCidade($event)" [isClosed]="!open">
@@ -54,6 +55,6 @@
     </app-delete-warning>
 
     <app-delete-warning (confirm)="deleteCidadeList($event)" [isClosed]="!askDeleteGroup">
-        Cidades selecionadas = {{selectedCidades.length}} 
+        Cidades selecionadas = {{selectedCidades.length}}
     </app-delete-warning>
 </div>

@@ -74,4 +74,19 @@
       width: 10%;
     }
   }
+
+  .btn-container{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn{
+      padding: 1rem 2rem;
+
+      &:hover{
+        background-color: $red-darken-4;
+      }
+    }
+  }
 }
