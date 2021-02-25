@@ -2,8 +2,11 @@
   <span (click)="closeBtn()" class="close" title="Close Modal">×</span>
   <form class="modal-content">
     <div class="container">
-      <h1>Remover cidade: {{data?.nome}}</h1>
-      <p>Deseja continuar?</p>
+
+      <h1>
+        <ng-content></ng-content>
+      </h1>
+      <span>Deseja continuar?</span>
 
       <div class="clearfix">
         <button type="button" (click)="cancelBtn()" class="cancelbtn">Cancelar</button>
