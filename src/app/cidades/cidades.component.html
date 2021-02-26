@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let cidade of cidadesList;index as itemIndex; trackBy:trackByFn">
-                <td>{{cidade.nome}}</td>
+                <td>{{cidade.nome | formatCidadeName}}</td>
                 <td>{{cidade.populacao}}</td>
                 <td>{{dolar2Real(cidade) | currency:'BRL':'symbol':'1.2-2':'pt-BR'}}</td>
                 <td>
@@ -53,7 +53,7 @@
     </div>
 
     <app-delete-warning (confirm)="deleteCidade($event)" [isClosed]="!open">
-        Remover cidade: {{selectedCidade?.nome}}
+        Remover cidade: {{selectedCidade?.nome | formatCidadeName}}
     </app-delete-warning>
 
     <app-delete-warning (confirm)="deleteCidadeList($event)" [isClosed]="!askDeleteGroup">

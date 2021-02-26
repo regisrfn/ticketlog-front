@@ -19,6 +19,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { NotificationComponent } from './notification/notification.component';
 import { CidadeService } from './shared/cidade.service';
 import { EstadoService } from './shared/estado.service';
+import { FormatCidadeNamePipe } from './pipes/format-cidade-name.pipe';
 
 registerLocaleData(ptBr)
 
@@ -34,7 +35,8 @@ registerLocaleData(ptBr)
     NewCidadeComponent,
     NewCidadeFromFileComponent,
     PopupFileComponent,
-    DeleteWarningComponent
+    DeleteWarningComponent,
+    FormatCidadeNamePipe
   ],
   imports: [
     BrowserModule,
