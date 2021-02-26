@@ -37,10 +37,14 @@ export class CidadesComponent implements OnInit {
   }
 
   nextPage() {
+    this.selectedCidades = []
+    this.selectedCidade = new Cidade
     this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber+1);
   }
 
   previousPage() {
+    this.selectedCidades = []
+    this.selectedCidade = new Cidade
     this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber-1);
   }
 
