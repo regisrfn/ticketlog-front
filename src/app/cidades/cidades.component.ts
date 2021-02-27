@@ -111,11 +111,13 @@ export class CidadesComponent implements OnInit {
   setPageOrderBY(orderBy: string) {
     if (orderBy === 'populacao') {
       this.orderBy = orderBy
+      this.ascNome = true
       this.ascPopulacao = !this.ascPopulacao
       this.asc = this.ascPopulacao
     }
     else if (orderBy === 'nome') {
       this.orderBy = orderBy
+      this.ascPopulacao = true
       this.ascNome = !this.ascNome
       this.asc = this.ascNome
     }

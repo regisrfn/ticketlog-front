@@ -1,0 +1,25 @@
+<div class="search-result">
+    <div *ngIf="foundListOfCidades.length===0">
+        <h1> Nenhuma cidade encontrada</h1>
+    </div>
+    <div *ngIf="foundListOfCidades.length > 0">
+        <h1>
+            Resultados para : "{{cidadeNameToSearch}}"
+        </h1>
+        <hr>
+        <table>
+            <thead>
+                <th>Nome</th>
+                <th>População</th>
+                <th>Estado</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cidade of foundListOfCidades;index as itemIndex; trackBy:trackByFn">
+                    <td>{{cidade.nome |formatCidadeName}}</td>
+                    <td>{{cidade.populacao}}</td>
+                    <td>{{cidade.uf}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -37,7 +37,7 @@
       width: 50%;
       background-color: transparent;
 
-      &:hover{
+      &:hover {
         transform: scale(1.1);
       }
 
@@ -45,7 +45,7 @@
         fill: $red-accent-3;
 
         :hover {
-          fill:$red-accent-4;
+          fill: $red-accent-4;
         }
       }
     }
@@ -55,8 +55,8 @@
       font-size: 1.5rem;
       background-color: transparent;
       color: $grey-darken-3;
-      
-      &:hover{
+
+      &:hover {
         transform: scale(1.1);
       }
 
@@ -76,24 +76,29 @@
 
     th {
       cursor: pointer;
-      &:not(:last-child):hover{
+      &:not(:last-child):hover {
+        background-color: rgba($color: $grey-lighten-1, $alpha: 1);
+        transform: scaleY(1.05);
+      }
+
+      &.clicked {
         background-color: rgba($color: $grey-lighten-1, $alpha: 1);
         transform: scaleY(1.05);
       }
     }
   }
 
-  .btn-container{
+  .btn-container {
     margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .btn{
+    .btn {
       padding: 1rem 2rem;
       max-width: 80rem;
 
-      &:hover{
+      &:hover {
         background-color: $red-darken-4;
       }
     }

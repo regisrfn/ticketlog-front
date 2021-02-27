@@ -1,0 +1,20 @@
+.search-result {
+    min-height: 100vh;
+    padding: 3rem 1rem;
+    background: rgb(0, 133, 155);
+    background-color:$grey-lighten-2;
+    background-image: linear-gradient(62deg, $grey-lighten-2 0%, $grey-lighten-3 100%);
+
+    h1 {
+        color: $grey-darken-2;
+    }
+
+    hr {
+        border: 0;
+        height: 0;
+        border-top: 1px solid #eee;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+}

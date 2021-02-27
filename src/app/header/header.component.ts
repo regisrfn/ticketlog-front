@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
   isChecked = false
   isClicked = false
   addClassX = false
+  queryParam: string | undefined
 
   handleScroll() {
     const scrollY = window.scrollY
@@ -36,6 +37,10 @@ export class HeaderComponent implements OnInit {
         }
       }
     }
+  }
+
+  search() {
+
   }
 
   constructor() { }

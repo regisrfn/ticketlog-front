@@ -20,6 +20,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { CidadeService } from './shared/cidade.service';
 import { EstadoService } from './shared/estado.service';
 import { FormatCidadeNamePipe } from './pipes/format-cidade-name.pipe';
+import { SearchResultComponent } from './cidades/search-result/search-result.component';
 
 registerLocaleData(ptBr)
 
@@ -36,7 +37,8 @@ registerLocaleData(ptBr)
     NewCidadeFromFileComponent,
     PopupFileComponent,
     DeleteWarningComponent,
-    FormatCidadeNamePipe
+    FormatCidadeNamePipe,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

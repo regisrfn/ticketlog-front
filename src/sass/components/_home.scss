@@ -1,7 +1,8 @@
 .container__home {
     width: 100%;
     min-height: 100vh;
-    background-color: $grey-lighten-2;
+    background-color:$grey-lighten-2;
+    background-image: linear-gradient(62deg, $grey-lighten-2 0%, $grey-lighten-3 100%);
 }
 
 .home {

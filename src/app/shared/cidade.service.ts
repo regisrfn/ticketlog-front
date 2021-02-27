@@ -19,6 +19,10 @@ export class CidadeService {
     return this.http.get(environment.apiCidade + '/get').toPromise();
   }
 
+  getCidadesListByName(nome:string) {
+    return this.http.get(`${environment.apiCidade}/search?nome=${nome}`).toPromise();
+  }
+
   getCidadesListPorEstado(uf: String) {
     return this.http.get(environment.apiCidade + `/${uf}`).toPromise();
   }

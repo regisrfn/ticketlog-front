@@ -2,8 +2,8 @@
     <h1>CIDADES</h1>
     <table *ngIf="cidadesList.length !==0">
         <thead>
-            <th (click)="setPageOrderBY('nome')">Nome</th>
-            <th (click)="setPageOrderBY('populacao')">População</th>
+            <th (click)="setPageOrderBY('nome')" [ngClass]="{clicked:!asc && !ascNome}">Nome</th>
+            <th (click)="setPageOrderBY('populacao')"  [ngClass]="{clicked:!asc && !ascPopulacao}">População</th>
             <th>Custo</th>
             <th>
                 <div class="tbl-btn">
