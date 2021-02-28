@@ -1,5 +1,6 @@
 <!-- ITEM COMPONENT -->
 <div class="item">
+  <ng-content ></ng-content>
   <div class="item-box">
     <div class="left">
       <img class="icon" [src]="estado?.urlImage || ''" />
@@ -20,5 +21,6 @@
       </button>
     </div>
   </div>
+  <app-loader *ngIf="isSavingCidade"><h1>Salvando...</h1></app-loader>
 </div>
 <!-- ITEM COMPONENT -->

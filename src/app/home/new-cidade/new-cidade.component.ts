@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class NewCidadeComponent implements OnInit {
   @Input() estado: Estado | undefined;
   formData = new Cidade();
-  savingCidade = false;
+  isSavingCidade = false;
   errors = new ApiError
 
   constructor(private cidadeService: CidadeService, private router: Router) { }
@@ -22,14 +22,14 @@ export class NewCidadeComponent implements OnInit {
 
   saveCidade() {
     this.setEvenMessage()
-    this.savingCidade = true;
+    this.isSavingCidade = true;
 
     this.formData.uf = this.estado?.uf;
     this.cidadeService
       .saveCidade(this.formData)
       .then((response) => {
         this.setEvenMessage(true, 'Cidade salva com sucesso', 'successfully')
-        this.savingCidade = false;
+        this.isSavingCidade = false;
       })
       .then(() => {
         this.router.navigate([`/`]);
@@ -39,7 +39,7 @@ export class NewCidadeComponent implements OnInit {
           this.errors = err.error.errors as ApiError;          
         }          
         this.setEvenMessage(true, 'Cidade não pode ser salva', 'error')
-        this.savingCidade = false;
+        this.isSavingCidade = false;
       });
   }
 

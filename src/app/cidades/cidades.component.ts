@@ -20,6 +20,7 @@ export class CidadesComponent implements OnInit {
   selectedCidades: Cidade[] = []
   modoEdicao = false;
   askDeleteGroup = false
+  isDeleting = false
 
   ascPopulacao = true
   ascNome = true
@@ -39,13 +40,13 @@ export class CidadesComponent implements OnInit {
   nextPage() {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber+1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber + 1);
   }
 
   previousPage() {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber-1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber - 1);
   }
 
   trackByFn(index: any, item: Cidade) {
@@ -70,13 +71,16 @@ export class CidadesComponent implements OnInit {
 
   deleteCidade(event: { isConfirmed: boolean }) {
     this.setDeleteEvenMessage();
+    this.isDeleting = true
     if (event.isConfirmed) {
       this.cidadeService.deleteCidade(this.selectedCidade?.id || "")
         .then(res => {
           this.setDeleteEvenMessage(true, 'Cidade removida', 'successfully')
+          this.isDeleting = false
         })
         .catch(err => {
           this.setDeleteEvenMessage(true, 'Cidade não pode ser removida', 'error')
+          this.isDeleting = false
         })
     }
     else {
@@ -87,13 +91,16 @@ export class CidadesComponent implements OnInit {
 
   deleteCidadeList(event: { isConfirmed: boolean }) {
     this.setDeleteEvenMessage();
+    this.isDeleting = true
     if (event.isConfirmed) {
       this.cidadeService.deleteCidadesList(this.selectedCidades)
         .then(res => {
           this.setDeleteEvenMessage(true, 'Lista de cidades removida', 'successfully')
+          this.isDeleting = false
         })
         .catch(err => {
           this.setDeleteEvenMessage(true, 'Lista não removida', 'error')
+          this.isDeleting = false
         })
     }
     else {
@@ -144,27 +151,16 @@ export class CidadesComponent implements OnInit {
   private subscribeNotifications() {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
       if (notification.type === "successfully")
-        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+        this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
     });
     this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
       if (notification.type === "successfully") {
         this.open = false;
         this.askDeleteGroup = false
         this.modoEdicao = false
-        this.setCidadePage(this.uf, this.pageOfCidades.pageNumber);
+        this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
       }
-
     });
-  }
-  private setCidadePage(uf: string, pageNumber: number) {
-    this.cidadeService.getPagePorEstado(uf, pageNumber)
-      .then((page) => {
-        this.pageOfCidades = page as Page;
-        this.cidadesList = this.pageOfCidades.cidadesList;
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   private reset() {
@@ -175,6 +171,17 @@ export class CidadesComponent implements OnInit {
     this.ascPopulacao = true
     this.ascNome = true
     this.orderBy = "nome"
+  }
+
+  private setCidadePage(uf: string, pageNumber: number) {
+    this.cidadeService.getPagePorEstado(uf, pageNumber)
+      .then((page) => {
+        this.pageOfCidades = page as Page;
+        this.cidadesList = this.pageOfCidades.cidadesList;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   private setCidadePageOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number) {

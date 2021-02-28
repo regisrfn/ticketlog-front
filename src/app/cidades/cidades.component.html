@@ -59,4 +59,8 @@
     <app-delete-warning (confirm)="deleteCidadeList($event)" [isClosed]="!askDeleteGroup">
         Cidades selecionadas: {{selectedCidades.length}}
     </app-delete-warning>
+
+    <app-loader *ngIf="isDeleting">
+        <h1>Removendo cidade</h1>
+    </app-loader>
 </div>

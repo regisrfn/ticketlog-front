@@ -1,4 +1,5 @@
 .content {
+    z-index: 3 ;
     position: fixed;
     left: 0;
     top: 0;
@@ -8,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba($black, 0.2);
+    background-color: rgba($black, 0.5);
 
     .loader {
         display: flex;
@@ -24,6 +25,12 @@
         font-size: 3rem;
         color: $green-darken-2;
         font-weight: bolder;
+    }
+
+    h1{
+        color: white;
+        font-size: 3rem;
+        font-weight: bold;
     }
 }
 
