@@ -13,8 +13,8 @@
             <div class="nav-search">
                 <div class="header__search">
                     <input class="search-input" type="text" name="search-header" placeholder="Pesquisar" [(ngModel)]="queryParam">
-                    <div class="search-icon">
-                        <div [routerLink]="[ '/search']" [queryParams]="{nome:queryParam}" class="icon" [inlineSVG]="'assets/svg/search.svg'"></div>
+                    <div [routerLink]="[ '/search']" [queryParams]="{nome:queryParam}" class="search-icon">
+                        <div class="icon" [inlineSVG]="'assets/svg/search.svg'"></div>
                     </div>
                 </div>    
             </div>

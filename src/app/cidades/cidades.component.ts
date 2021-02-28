@@ -71,8 +71,8 @@ export class CidadesComponent implements OnInit {
 
   deleteCidade(event: { isConfirmed: boolean }) {
     this.setDeleteEvenMessage();
-    this.isDeleting = true
     if (event.isConfirmed) {
+      this.isDeleting = true
       this.cidadeService.deleteCidade(this.selectedCidade?.id || "")
         .then(res => {
           this.setDeleteEvenMessage(true, 'Cidade removida', 'successfully')
@@ -84,6 +84,7 @@ export class CidadesComponent implements OnInit {
         })
     }
     else {
+      this.isDeleting = false
       this.open = false;
       this.selectedCidade = undefined
     }
@@ -91,8 +92,8 @@ export class CidadesComponent implements OnInit {
 
   deleteCidadeList(event: { isConfirmed: boolean }) {
     this.setDeleteEvenMessage();
-    this.isDeleting = true
     if (event.isConfirmed) {
+      this.isDeleting = true
       this.cidadeService.deleteCidadesList(this.selectedCidades)
         .then(res => {
           this.setDeleteEvenMessage(true, 'Lista de cidades removida', 'successfully')
@@ -104,6 +105,7 @@ export class CidadesComponent implements OnInit {
         })
     }
     else {
+      this.isDeleting = false
       this.askDeleteGroup = false;
     }
   }

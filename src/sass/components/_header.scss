@@ -338,7 +338,9 @@
             height: 3rem;
             color: $grey-darken-1;
         }
-
+        .search-icon,.search-icon:focus{
+            outline: none;
+        }
         .search-icon {
             display: flex;
             justify-content: center;
