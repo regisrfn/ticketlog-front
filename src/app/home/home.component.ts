@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   nomeOfState = 'Santa Catarina';
   url = 'assets/svg/Bandeira_de_Santa_Catarina.svg';
   estadoSelected: Estado | undefined;
+  
   closePopUp = false;
   dolarHoje: Dolar | undefined
 
