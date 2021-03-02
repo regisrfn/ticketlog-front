@@ -2,6 +2,9 @@
     <div *ngIf="foundListOfCidades.length===0">
         <h1> Nenhuma cidade encontrada</h1>
     </div>
+    <div class="voltar-link">
+        <a [routerLink]="'..'"> &larr; retorna </a>
+    </div>
     <div *ngIf="foundListOfCidades.length > 0">
         <h1>
             Resultados para : "{{cidadeNameToSearch}}"

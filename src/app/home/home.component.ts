@@ -46,6 +46,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("Home");
+    
     this.subscribeNotifications();
     this.getDolar()
     this.route.paramMap.subscribe(params => {
@@ -97,6 +99,7 @@ export class HomeComponent implements OnInit {
       .then((estado) => {
         this.estadoSelected = estado as Estado;
         this.estadoSelected.urlImage = this.url;
+        this.estadoService.estado = this.estadoSelected
         this.nomeOfState = this.estadoSelected.nome || ""
       })
       .catch((err) => { });

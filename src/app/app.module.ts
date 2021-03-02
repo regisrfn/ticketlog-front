@@ -21,6 +21,7 @@ import { CidadeService } from './shared/cidade.service';
 import { EstadoService } from './shared/estado.service';
 import { FormatCidadeNamePipe } from './pipes/format-cidade-name.pipe';
 import { SearchResultComponent } from './cidades/search-result/search-result.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 registerLocaleData(ptBr)
 
@@ -38,7 +39,8 @@ registerLocaleData(ptBr)
     PopupFileComponent,
     DeleteWarningComponent,
     FormatCidadeNamePipe,
-    SearchResultComponent
+    SearchResultComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

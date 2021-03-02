@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
+import { CidadeService } from '../shared/cidade.service';
+import { EstadoService } from '../shared/estado.service';
 
 @Component({
   selector: 'app-header',
@@ -42,11 +44,11 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    console.log(this.route.snapshot);    
-    this.router.navigate(['sc/search'])
+    let url = this.estadoService.estado.uf?.toLocaleLowerCase() || this.router.url.split("/")[1]    
+    this.router.navigate([`${url}/search`], { queryParams: { nome: this.queryParam } })
   }
 
-  constructor(private router:Router,private route: ActivatedRoute) { }
+  constructor(private router: Router, public estadoService: EstadoService) { }
 
   ngOnInit(): void {
     window.addEventListener("scroll", this.handleScroll);

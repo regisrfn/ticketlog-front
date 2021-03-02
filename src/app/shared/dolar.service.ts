@@ -13,9 +13,7 @@ export class DolarService {
   constructor(private http: HttpClient) {
     this.getDolar()
       .then(res => {
-        this.dolar = res as Dolar
-        console.log(this.dolar);
-        
+        this.dolar = res as Dolar        
       })
       .catch(err => console.log(err))
   }
