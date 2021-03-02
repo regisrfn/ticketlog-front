@@ -32,7 +32,7 @@ export class NewCidadeComponent implements OnInit {
         this.isSavingCidade = false;
       })
       .then(() => {
-        this.router.navigate([`/`]);
+        this.router.navigate([`/${this.estado?.uf}`]);
       })
       .catch((err) => {
         if (err.url === `${environment.apiCidade}/save`){

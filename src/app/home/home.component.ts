@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CidadeService } from '../shared/cidade.service';
 import { Dolar } from '../shared/dolar';
 import { DolarService } from '../shared/dolar.service';
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   nomeOfState = 'Santa Catarina';
   url = 'assets/svg/Bandeira_de_Santa_Catarina.svg';
   estadoSelected: Estado | undefined;
-  
+
   closePopUp = false;
   dolarHoje: Dolar | undefined
 
@@ -39,23 +40,36 @@ export class HomeComponent implements OnInit {
   constructor(
     private estadoService: EstadoService,
     private cidadeService: CidadeService,
-    private dolarService: DolarService
+    private dolarService: DolarService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.subscribeNotifications();
-    this.setEstadoSelected(this.estado);
     this.getDolar()
+    this.route.paramMap.subscribe(params => {
+      this.selectEstado(this.route.snapshot.params['uf'])
+    })
   }
 
-  selectEstado() {
-    let value = this.nomeOfState;
-    let estadoSelected = this.options.filter(
-      (estado) => estado.nome === value
-    )[0];
-    this.estado = estadoSelected.uf;
-    this.url = estadoSelected.url;
-    this.setEstadoSelected(this.estado);
+  selectEstado(uf: string | undefined) {
+    let newEstadoSelected = undefined
+    if (uf)
+      newEstadoSelected = this.options.filter(
+        (estado) => estado.uf === uf.toUpperCase()
+      )[0];
+    else
+      newEstadoSelected = this.options.filter(
+        (estado) => estado.nome === this.nomeOfState
+      )[0];
+
+    if (newEstadoSelected) {
+      this.estado = uf || newEstadoSelected.uf;
+      this.url = newEstadoSelected.url;
+      this.setEstadoSelected(this.estado);
+      this.router.navigate([`${this.estado.toLowerCase()}`])
+    }
   }
 
   newCidade() {
@@ -73,7 +87,6 @@ export class HomeComponent implements OnInit {
     this.dolarService.getDolar()
       .then(res => {
         this.dolarHoje = res as Dolar
-        console.log(this.dolarHoje);
       })
       .catch(err => console.log(err))
   }
@@ -84,6 +97,7 @@ export class HomeComponent implements OnInit {
       .then((estado) => {
         this.estadoSelected = estado as Estado;
         this.estadoSelected.urlImage = this.url;
+        this.nomeOfState = this.estadoSelected.nome || ""
       })
       .catch((err) => { });
   }

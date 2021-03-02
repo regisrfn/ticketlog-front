@@ -32,7 +32,7 @@ export class NewCidadeFromFileComponent implements OnInit {
         this.savingCidade = false;
       })
       .then(() => {
-        this.router.navigate([`/`]);
+        this.router.navigate([`/${this.estado?.uf}`]);
       })
       .catch((err) => {
         this.setEvenMessage(true,'Lista de cidades não foi salva', 'error')

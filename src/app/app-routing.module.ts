@@ -8,10 +8,15 @@ const routes: Routes = [
     path: '',
     children: [
       { path: '', component: HomeComponent },
-      { path: 'estado', component: HomeComponent },
+      {
+        path: ':uf',
+        children: [
+          { path: '', component: HomeComponent },
+          { path: 'search', component: SearchResultComponent },
+        ]
+      },
     ],
-  },
-  { path: 'search', component: SearchResultComponent }
+  }
 ];
 
 @NgModule({

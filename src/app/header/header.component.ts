@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-header',
@@ -40,10 +42,11 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-
+    console.log(this.route.snapshot);    
+    this.router.navigate(['sc/search'])
   }
 
-  constructor() { }
+  constructor(private router:Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     window.addEventListener("scroll", this.handleScroll);
