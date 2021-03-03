@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   nomeOfState = 'Santa Catarina';
   url = 'assets/svg/Bandeira_de_Santa_Catarina.svg';
   estadoSelected: Estado | undefined;
+  loadingEstado = false
 
   closePopUp = false;
   dolarHoje: Dolar | undefined
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
 
   selectEstado(uf: string | undefined) {
     let newEstadoSelected = undefined
+    this.loadingEstado = true
     if (uf)
       newEstadoSelected = this.options.filter(
         (estado) => estado.uf === uf.toUpperCase()
@@ -71,6 +73,8 @@ export class HomeComponent implements OnInit {
       this.url = newEstadoSelected.url;
       this.setEstadoSelected(this.estado);
       this.router.navigate([`${this.estado.toLowerCase()}`])
+    }else{
+      this.loadingEstado=false
     }
   }
 

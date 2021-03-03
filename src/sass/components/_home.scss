@@ -78,3 +78,13 @@
         }
     }
 }
+
+.not_found{
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+
+    h1{
+        color: $blue-darken-4;
+    }
+}

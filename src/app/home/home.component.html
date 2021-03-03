@@ -31,3 +31,9 @@
   <app-popup-home *ngIf="!closePopUp" [data]="estadoSelected"></app-popup-home>
   <app-popup-file *ngIf="!closePopUp" [data]="estadoSelected"></app-popup-file>
 </div>
+
+<div *ngIf="!estadoSelected && !loadingEstado" class="not_found">
+  <h1>
+    Pagina não encontrada
+  </h1>
+</div>
