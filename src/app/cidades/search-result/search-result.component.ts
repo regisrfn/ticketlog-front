@@ -11,14 +11,14 @@ export class SearchResultComponent implements OnInit {
 
   foundListOfCidades: Cidade[] = []
   cidadeNameToSearch: string | undefined
+  query: string | undefined
+  param: string | undefined
 
-
-  searchCidade(nome: string | undefined) {
-    if (nome) {
-      this.cidadeService.getCidadesListByName(nome)
+  searchCidade(uf: string | undefined, nome: string | undefined) {
+    if (nome && uf) {
+      this.cidadeService.getCidadesListByNameAndUf(uf, nome)
         .then(res => {
           this.foundListOfCidades = res as Cidade[]
-          console.log(this.foundListOfCidades)          
         })
         .catch(err => console.log(err))
     }
@@ -32,8 +32,9 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      this.param = this.route.snapshot.params["uf"]
       this.cidadeNameToSearch = params.nome
-      this.searchCidade(this.cidadeNameToSearch)
+      this.searchCidade(this.param, this.cidadeNameToSearch)
     })
   }
 

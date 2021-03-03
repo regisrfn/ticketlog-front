@@ -13,14 +13,18 @@ export class CidadeService {
   @Output() savedCidade: EventEmitter<Notification> = new EventEmitter();
   @Output() deletedCidade: EventEmitter<Notification> = new EventEmitter();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCidadesList() {
     return this.http.get(environment.apiCidade + '/get').toPromise();
   }
 
-  getCidadesListByName(nome:string) {
+  getCidadesListByName(nome: string) {
     return this.http.get(`${environment.apiCidade}/search?nome=${nome}`).toPromise();
+  }
+
+  getCidadesListByNameAndUf(uf: string, nome: string) {
+    return this.http.get(`${environment.apiCidade}/${uf}/search?nome=${nome}`).toPromise();
   }
 
   getCidadesListPorEstado(uf: String) {
@@ -35,7 +39,7 @@ export class CidadeService {
       .toPromise();
   }
 
-  getPagePorEstadoOrderBy(uf: string, orderBy:string, asc:boolean, pageNumber: number, pageSize = 5) {
+  getPagePorEstadoOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number, pageSize = 5) {
     return this.http
       .get(
         `${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}&sort=${orderBy}&asc=${asc}`
