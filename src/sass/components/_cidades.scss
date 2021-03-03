@@ -101,6 +101,10 @@
       &:hover {
         background-color: $red-darken-4;
       }
+
+      &:disabled {
+        background-color: $grey-darken-1;
+      }
     }
   }
 }
