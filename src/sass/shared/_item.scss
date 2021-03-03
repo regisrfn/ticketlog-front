@@ -8,6 +8,14 @@
   padding: 0;
   border-radius: 2rem;
 
+  input:invalid {
+    box-shadow: none;
+  }
+
+  .ng_invalid:not(form)  {
+    box-shadow:0 0 3px red; /* red */
+  }
+
   .item-box {
     display: flex;
     width: 100%;
@@ -27,8 +35,8 @@
       border-bottom-right-radius: 2rem;
 
       span {
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
+        margin-bottom: 0rem;
+        font-size: 1.1rem;
         font-weight: bolder;
       }
     }
@@ -125,4 +133,13 @@
     font-family: $header-font;
   }
 
+  h3 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-family: $header-font;
+  }
+
+  button:disabled{
+    background-color: $grey-darken-1
+  }
 }

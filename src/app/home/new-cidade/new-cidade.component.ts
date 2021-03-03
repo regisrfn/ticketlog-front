@@ -4,6 +4,7 @@ import { ApiError } from 'src/app/shared/api-error.model';
 import { Cidade } from 'src/app/shared/cidade.model';
 import { CidadeService } from 'src/app/shared/cidade.service';
 import { Estado } from 'src/app/shared/estado.model';
+import { ValidateCidadeService } from 'src/app/shared/validate-cidade.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,8 +16,9 @@ export class NewCidadeComponent implements OnInit {
   formData = new Cidade();
   isSavingCidade = false;
   errors = new ApiError
+  validation = { nome: false, populacao: false }
 
-  constructor(private cidadeService: CidadeService, private router: Router) { }
+  constructor(private cidadeService: CidadeService, private router: Router, private validade: ValidateCidadeService) { }
 
   ngOnInit(): void { }
 
@@ -35,12 +37,30 @@ export class NewCidadeComponent implements OnInit {
         this.router.navigate([`/${this.estado?.uf}`]);
       })
       .catch((err) => {
-        if (err.url === `${environment.apiCidade}/save`){
-          this.errors = err.error.errors as ApiError;          
-        }          
+        if (err.url === `${environment.apiCidade}/save`) {
+          this.errors = err.error.errors as ApiError;
+        }
         this.setEvenMessage(true, 'Cidade não pode ser salva', 'error')
         this.isSavingCidade = false;
       });
+  }
+
+  public validatePopulacao(input: HTMLInputElement) {
+    let number = input.value
+    if (!this.validade.validateNumber(number)) {
+      input.value = ""
+      this.validation.populacao = false
+    } else {
+      this.validation.populacao = true
+    }
+
+  }
+
+  public validateNome() {
+    if (this.formData.nome && this.formData.nome.length > 0)
+      this.validation.nome = true
+    else
+      this.validation.nome = false
   }
 
   private setEvenMessage(show = false, msg = '', type = '') {

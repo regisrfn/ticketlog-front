@@ -1,6 +1,6 @@
 <!-- ITEM COMPONENT -->
 <div class="item">
-  <ng-content ></ng-content>
+  <ng-content></ng-content>
   <div class="item-box">
     <div class="left">
       <img class="icon" [src]="estado?.urlImage || ''" />
@@ -8,19 +8,22 @@
     <div class="right">
       <h2>Inserir Cidade</h2>
 
-      <span *ngIf="estado">{{estado.nome?.toLocaleUpperCase()}}</span>
+      <h3 *ngIf="estado">{{estado.nome?.toLocaleUpperCase()}}</h3>
 
       <span class="error" *ngIf="errors.nome">{{errors.nome}}</span>
-      <input type="text" class="item__field" placeholder="Nome" [(ngModel)]="formData.nome">      
+      <input type="text" (change)="validateNome()" [ngClass]="{ng_invalid:!validation.nome}" class="item__field"placeholder="Nome" [(ngModel)]="formData.nome">
 
       <span class="error" *ngIf="errors.populacao">{{errors.populacao}}</span>
-      <input type="number" class="item__field" placeholder="Populacao" [(ngModel)]="formData.populacao">
+      <input #popIn type="number" class="item__field" placeholder="Populacao" [(ngModel)]="formData.populacao"
+        (keyup)="validatePopulacao(popIn)" [ngClass]="{ng_invalid:!validation.populacao}">
 
-      <button class="item__btn">
-        <a (click)="saveCidade()">Salvar</a>
+      <button (click)="saveCidade()" class="item__btn" [disabled]="!validation.nome || !validation.populacao">
+        <a>Salvar</a>
       </button>
     </div>
   </div>
-  <app-loader *ngIf="isSavingCidade"><h1>Salvando...</h1></app-loader>
+  <app-loader *ngIf="isSavingCidade">
+    <h1>Salvando...</h1>
+  </app-loader>
 </div>
 <!-- ITEM COMPONENT -->
