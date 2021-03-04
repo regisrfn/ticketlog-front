@@ -1,9 +1,13 @@
 <div class="cidades">
-    <h1>CIDADES</h1>
+    <div class="cidades__title">
+        <h1>CIDADES</h1>
+        <span *ngIf="pageOfCidades.totalPages > 0">Pagina {{pageOfCidades.pageNumber+1}} de
+            {{pageOfCidades.totalPages}}</span>
+    </div>
     <table *ngIf="cidadesList.length !==0">
         <thead>
             <th (click)="setPageOrderBY('nome')" [ngClass]="{clicked:!asc && !ascNome}">Nome</th>
-            <th (click)="setPageOrderBY('populacao')"  [ngClass]="{clicked:!asc && !ascPopulacao}">População</th>
+            <th (click)="setPageOrderBY('populacao')" [ngClass]="{clicked:!asc && !ascPopulacao}">População</th>
             <th>Custo</th>
             <th>
                 <div class="tbl-btn">
@@ -40,9 +44,13 @@
         <a (click)="previousPage()" class="previous" *ngIf="pageOfCidades.pageNumber > 0">
             &laquo; Anterior
         </a>
+        <a href="#" *ngFor="let item of arrayOne(pageOfCidades.totalPages);index as itemIndex;" >
+            {{itemIndex+1}}
+        </a>
         <a (click)="nextPage()" class="next" *ngIf="pageOfCidades.pageNumber < pageOfCidades.totalPages-1">
             Proxima &raquo;
         </a>
+
     </div>
 
     <div class="btn-container">

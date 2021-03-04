@@ -1,9 +1,23 @@
 .cidades {
   padding: 1rem 3rem;
+
+  &__title{
+    display: flex;
+    align-items: baseline;
+    > h1 {
+      display: inline;
+      margin-right: auto;
+    }
+    > span{
+      font-size: 1.6rem;
+      color: $grey-darken-1;
+    }
+  }
+  
   .nav-buttons {
     display: flex;
     flex-grow: 1;
-    justify-content: space-between;
+    justify-content: center;
     > a {
       cursor: pointer;
       text-decoration: none;
@@ -17,7 +31,6 @@
       }
 
       &.next {
-        margin-left: auto;
         background-color: $green;
         color: white;
       }

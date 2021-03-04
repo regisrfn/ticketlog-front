@@ -133,6 +133,10 @@ export class CidadesComponent implements OnInit {
     this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
   }
 
+  arrayOne(n: number): any[] {
+    return Array(n);
+  }
+
   private setDolar() {
     this.dolarService.getDolar()
       .then(res => {
@@ -180,6 +184,8 @@ export class CidadesComponent implements OnInit {
       .then((page) => {
         this.pageOfCidades = page as Page;
         this.cidadesList = this.pageOfCidades.cidadesList;
+        console.log(page);
+        
       })
       .catch(err => {
         console.log(err);
