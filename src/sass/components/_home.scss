@@ -6,10 +6,13 @@
 }
 
 .home {
-    padding: 1rem 10rem;
+    padding: 3rem 10rem;
     margin-bottom: 5rem;
     display: flex;
 
+    @media only screen and (max-width: $MEDIUM-DEV) {
+        padding: 1rem 3rem;
+    }
     @media only screen and (max-width: $SMALL-DEV) {
         padding: 1rem 2rem;
         flex-direction: column-reverse;
@@ -17,10 +20,13 @@
     }
 
     &__content {
-        flex-grow: 1;
         flex-shrink: 1;
         display: flex;
         flex-direction: column;
+        margin-right: auto;
+        border-radius: 1rem;
+        background-color: whitesmoke;
+        padding: 2rem 1rem;
 
         h1 {
             color: $blue-darken-4;
@@ -53,6 +59,9 @@
                     outline: none;
                 }
             }
+        }
+        @media only screen and (max-width: $SMALL-DEV) {
+           margin-right: 0;
         }
     }
     > img {
