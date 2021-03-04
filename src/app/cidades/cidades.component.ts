@@ -27,8 +27,6 @@ export class CidadesComponent implements OnInit {
   asc = true;
   orderBy = "nome"
 
-
-
   constructor(private cidadeService: CidadeService, private dolarService: DolarService) { }
 
   ngOnInit(): void {
@@ -47,6 +45,12 @@ export class CidadesComponent implements OnInit {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
     this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber - 1);
+  }
+
+  goToPage(pageNo: number) {
+    this.selectedCidades = []
+    this.selectedCidade = new Cidade
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, pageNo);
   }
 
   trackByFn(index: any, item: Cidade) {
@@ -185,7 +189,7 @@ export class CidadesComponent implements OnInit {
         this.pageOfCidades = page as Page;
         this.cidadesList = this.pageOfCidades.cidadesList;
         console.log(page);
-        
+
       })
       .catch(err => {
         console.log(err);

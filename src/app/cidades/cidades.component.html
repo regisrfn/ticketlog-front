@@ -44,7 +44,8 @@
         <a (click)="previousPage()" class="previous" *ngIf="pageOfCidades.pageNumber > 0">
             &laquo; Anterior
         </a>
-        <a href="#" *ngFor="let item of arrayOne(pageOfCidades.totalPages);index as itemIndex;" >
+        <a class="pageNo" [ngClass]="{selected:itemIndex===pageOfCidades.pageNumber}"
+            *ngFor="let item of arrayOne(pageOfCidades.totalPages);index as itemIndex;" (click)="goToPage(itemIndex)">
             {{itemIndex+1}}
         </a>
         <a (click)="nextPage()" class="next" *ngIf="pageOfCidades.pageNumber < pageOfCidades.totalPages-1">
