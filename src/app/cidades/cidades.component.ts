@@ -12,19 +12,19 @@ import { Page } from '../shared/page.model';
 })
 export class CidadesComponent implements OnInit {
   @Input() uf = '';
-  dolarHoje = new Dolar
-  pageOfCidades = new Page();
+  dolarNow = new Dolar
+  cidadesPage = new Page();
   cidadesList: Cidade[] = [];
   open = false
   selectedCidade: Cidade | undefined
   selectedCidades: Cidade[] = []
-  modoEdicao = false;
+  editMode = false;
   askDeleteGroup = false
   isDeleting = false
 
-  ascPopulacao = true
-  ascNome = true
-  asc = true;
+  ascendingPopulacao = true
+  ascendingNome = true
+  ascending = true;
   orderBy = "nome"
 
   constructor(private cidadeService: CidadeService, private dolarService: DolarService) { }
@@ -44,19 +44,19 @@ export class CidadesComponent implements OnInit {
   nextPage() {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber + 1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, this.cidadesPage.pageNumber + 1);
   }
 
   previousPage() {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber - 1);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, this.cidadesPage.pageNumber - 1);
   }
 
   goToPage(pageNo: number) {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, pageNo);
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, pageNo);
   }
 
   trackByFn(index: any, item: Cidade) {
@@ -114,8 +114,8 @@ export class CidadesComponent implements OnInit {
   }
 
   dolar2Real(cidade: Cidade) {
-    if (cidade.custoCidadeUs && this.dolarHoje?.USD) {
-      return cidade.custoCidadeUs * (this.dolarHoje.USD.ask || 1)
+    if (cidade.custoCidadeUs && this.dolarNow?.USD) {
+      return cidade.custoCidadeUs * (this.dolarNow.USD.ask || 1)
     }
     return 0
   }
@@ -123,17 +123,17 @@ export class CidadesComponent implements OnInit {
   setPageOrderBY(orderBy: string) {
     if (orderBy === 'populacao') {
       this.orderBy = orderBy
-      this.ascNome = true
-      this.ascPopulacao = !this.ascPopulacao
-      this.asc = this.ascPopulacao
+      this.ascendingNome = true
+      this.ascendingPopulacao = !this.ascendingPopulacao
+      this.ascending = this.ascendingPopulacao
     }
     else if (orderBy === 'nome') {
       this.orderBy = orderBy
-      this.ascPopulacao = true
-      this.ascNome = !this.ascNome
-      this.asc = this.ascNome
+      this.ascendingPopulacao = true
+      this.ascendingNome = !this.ascendingNome
+      this.ascending = this.ascendingNome
     }
-    this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
+    this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, this.cidadesPage.pageNumber)
   }
 
   arrayOne(n: number): any[] {
@@ -143,7 +143,7 @@ export class CidadesComponent implements OnInit {
   private setDolar() {
     this.dolarService.getDolar()
       .then(res => {
-        this.dolarHoje = res as Dolar
+        this.dolarNow = res as Dolar
       })
       .catch(err => console.log(err))
   }
@@ -160,14 +160,14 @@ export class CidadesComponent implements OnInit {
   private subscribeNotifications() {
     this.cidadeService.savedCidade.subscribe((notification: Notification) => {
       if (notification.type === "successfully")
-        this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
+        this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, this.cidadesPage.pageNumber)
     });
     this.cidadeService.deletedCidade.subscribe((notification: Notification) => {
       if (notification.type === "successfully") {
         this.open = false;
         this.askDeleteGroup = false
-        this.modoEdicao = false
-        this.setCidadePageOrderBy(this.uf, this.orderBy, this.asc, this.pageOfCidades.pageNumber)
+        this.editMode = false
+        this.setCidadePageOrderBy(this.uf, this.orderBy, this.ascending, this.cidadesPage.pageNumber)
       }
     });
   }
@@ -175,29 +175,29 @@ export class CidadesComponent implements OnInit {
   private reset() {
     this.selectedCidades = []
     this.selectedCidade = new Cidade
-    this.modoEdicao = false;
+    this.editMode = false;
     this.askDeleteGroup = false
-    this.ascPopulacao = true
-    this.ascNome = true
+    this.ascendingPopulacao = true
+    this.ascendingNome = true
     this.orderBy = "nome"
   }
 
   private setCidadePage(uf: string, pageNumber: number) {
     this.cidadeService.getPagePorEstado(uf, pageNumber)
       .then((page) => {
-        this.pageOfCidades = page as Page;
-        this.cidadesList = this.pageOfCidades.cidadesList;
+        this.cidadesPage = page as Page;
+        this.cidadesList = this.cidadesPage.cidadesList;
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  private setCidadePageOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number) {
-    this.cidadeService.getPagePorEstadoOrderBy(uf, orderBy, asc, pageNumber)
+  private setCidadePageOrderBy(uf: string, orderBy: string, ascending: boolean, pageNumber: number) {
+    this.cidadeService.getPagePorEstadoOrderBy(uf, orderBy, ascending, pageNumber)
       .then((page) => {
-        this.pageOfCidades = page as Page;
-        this.cidadesList = this.pageOfCidades.cidadesList;
+        this.cidadesPage = page as Page;
+        this.cidadesList = this.cidadesPage.cidadesList;
       })
       .catch(err => {
         console.log(err);

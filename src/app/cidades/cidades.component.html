@@ -1,17 +1,17 @@
 <div class="cidades">
     <div class="cidades__title">
         <h1>CIDADES</h1>
-        <span *ngIf="pageOfCidades.totalPages > 0">Pagina {{pageOfCidades.pageNumber+1}} de
-            {{pageOfCidades.totalPages}}</span>
+        <span *ngIf="cidadesPage.totalPages > 0">Pagina {{cidadesPage.pageNumber+1}} de
+            {{cidadesPage.totalPages}}</span>
     </div>
     <table *ngIf="cidadesList.length !==0">
         <thead>
-            <th (click)="setPageOrderBY('nome')" [ngClass]="{clicked:!asc && !ascNome}">Nome</th>
-            <th (click)="setPageOrderBY('populacao')" [ngClass]="{clicked:!asc && !ascPopulacao}">População</th>
+            <th (click)="setPageOrderBY('nome')" [ngClass]="{clicked:!ascending && !ascendingNome}">Nome</th>
+            <th (click)="setPageOrderBY('populacao')" [ngClass]="{clicked:!ascending && !ascendingPopulacao}">População</th>
             <th>Custo</th>
             <th>
                 <div class="tbl-btn">
-                    <button class="btn btn-edit" (click)="modoEdicao=!modoEdicao">
+                    <button class="btn btn-edit" (click)="editMode=!editMode">
                         <span class="icon" [inlineSVG]="'assets/svg/edit.svg'"></span>
                         Selecionar
                     </button>
@@ -25,10 +25,10 @@
                 <td>{{dolar2Real(cidade) | currency:'BRL':'symbol':'1.2-2':'pt-BR'}}</td>
                 <td>
                     <div class="tbl-btn">
-                        <button *ngIf="!modoEdicao" class="btn btn-del" (click)="selectCidade(cidade)">
+                        <button *ngIf="!editMode" class="btn btn-del" (click)="selectCidade(cidade)">
                             <span class="icon" [inlineSVG]="'assets/svg/delete.svg'"></span>
                         </button>
-                        <input *ngIf="modoEdicao" (change)="selectCidades()" type="checkbox"
+                        <input *ngIf="editMode" (change)="selectCidades()" type="checkbox"
                             [(ngModel)]="cidade.isChecked">
                     </div>
                 </td>
@@ -40,22 +40,22 @@
         <h1>Nenhuma cidade cadastrada</h1>
     </ng-container>
 
-    <div class="nav-buttons" *ngIf="(pageOfCidades.totalPages > 1)">
-        <a (click)="previousPage()" class="previous" *ngIf="pageOfCidades.pageNumber > 0">
+    <div class="nav-buttons" *ngIf="(cidadesPage.totalPages > 1)">
+        <a (click)="previousPage()" class="previous" *ngIf="cidadesPage.pageNumber > 0">
             &laquo; Anterior
         </a>
-        <a class="pageNo" [ngClass]="{selected:itemIndex===pageOfCidades.pageNumber}"
-            *ngFor="let item of arrayOne(pageOfCidades.totalPages);index as itemIndex;" (click)="goToPage(itemIndex)">
+        <a class="pageNo" [ngClass]="{selected:itemIndex===cidadesPage.pageNumber}"
+            *ngFor="let item of arrayOne(cidadesPage.totalPages);index as itemIndex;" (click)="goToPage(itemIndex)">
             {{itemIndex+1}}
         </a>
-        <a (click)="nextPage()" class="next" *ngIf="pageOfCidades.pageNumber < pageOfCidades.totalPages-1">
+        <a (click)="nextPage()" class="next" *ngIf="cidadesPage.pageNumber < cidadesPage.totalPages-1">
             Proxima &raquo;
         </a>
 
     </div>
 
     <div class="btn-container">
-        <button class="btn btn-del" *ngIf="modoEdicao" (click)="askDeleteGroup=true"
+        <button class="btn btn-del" *ngIf="editMode" (click)="askDeleteGroup=true"
             [disabled]="selectedCidades.length === 0">
             Excluir cidades selecionadas
         </button>
