@@ -31,7 +31,7 @@ export class CidadeService {
     return this.http.get(environment.apiCidade + `/${uf}`).toPromise();
   }
 
-  getPagePorEstado(uf: string, pageNumber: number, pageSize = 5) {
+  getPagePorEstado(uf: string, pageNumber: number, pageSize = 10) {
     return this.http
       .get(
         `${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}`
@@ -39,7 +39,7 @@ export class CidadeService {
       .toPromise();
   }
 
-  getPagePorEstadoOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number, pageSize = 5) {
+  getPagePorEstadoOrderBy(uf: string, orderBy: string, asc: boolean, pageNumber: number, pageSize = 10) {
     return this.http
       .get(
         `${environment.apiCidade}/${uf}/page?number=${pageNumber}&size=${pageSize}&sort=${orderBy}&asc=${asc}`

@@ -31,8 +31,14 @@ export class CidadesComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeNotifications();
-    this.setCidadePage(this.uf, 0);
     this.setDolar()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.uf) {
+      this.reset()
+      this.setCidadePage(this.uf, 0)
+    }
   }
 
   nextPage() {
@@ -55,13 +61,6 @@ export class CidadesComponent implements OnInit {
 
   trackByFn(index: any, item: Cidade) {
     return item.id;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.uf) {
-      this.reset()
-      this.setCidadePage(this.uf, 0)
-    }
   }
 
   selectCidade(cidade: Cidade) {
@@ -188,8 +187,6 @@ export class CidadesComponent implements OnInit {
       .then((page) => {
         this.pageOfCidades = page as Page;
         this.cidadesList = this.pageOfCidades.cidadesList;
-        console.log(page);
-
       })
       .catch(err => {
         console.log(err);
