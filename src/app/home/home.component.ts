@@ -47,13 +47,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("Home");
-    
     this.subscribeNotifications();
     this.getDolar()
-    this.route.paramMap.subscribe(params => {
-      this.selectEstado(this.route.snapshot.params['uf'])
-    })
+    this.selectEstado(this.route.snapshot.params['uf'])    
   }
 
   selectEstado(uf: string | undefined) {
@@ -73,8 +69,8 @@ export class HomeComponent implements OnInit {
       this.url = newEstadoSelected.url;
       this.setEstadoSelected(this.estado);
       this.router.navigate([`${this.estado.toLowerCase()}`])
-    }else{
-      this.loadingEstado=false
+    } else {
+      this.loadingEstado = false
     }
   }
 
